@@ -4,16 +4,16 @@ const querystring = require('querystring');
 const fs = require('fs');
 const formidable = require('formidable');
 
-function start(res, postData) {
+//start page, shoes form to upload an img
+function start(res) {
   console.log('req handler start called');
   let body = `<html>
   <head>
-  <meta http-equiv='Content-Type' content='text/html'
-  'charset=UTF-8' />
+  <meta http-equiv='Content-Type' content='text/html' charset='UTF-8' />
   </head>
   <body>
   <form action='/load' enctype='multipart/form-data' method='post'>
-  <input type='file' name='load'>
+  <input type='file' name='load' multiple='multiple'>
   <input type='submit' value='Upload File' />
   </form>
   </body>
@@ -24,16 +24,15 @@ function start(res, postData) {
   res.end();
 };
 
+//parse and loads input img from submitted form
 function load(res, req) {  
   console.log(`Req handler load was called`);
-  let form = new formidable.IncomingForm();
-  console.log(`Parsing of form start`);
+  var form = new formidable.IncomingForm();
   form.parse(req, (err, fields, files) => {
-    console.log(`Parsing of form complete`);
-    fs.rename(files.upload.path, `/tmp/test.png`, err => {
+    fs.rename(files.load.path, `/tmp/test.png`, err => {
       if(err) {
         fs.unlink(`/tmp.test.png`);
-        fs.rename(files.upload.path, `/tmp/test.png`);
+        fs.rename(files.load.path, `/tmp/test.png`);
       }
     });
   });
@@ -43,8 +42,8 @@ function load(res, req) {
   res.end();
 };
 
+//shows uploaded image to the page
 function show(res) {
-  console.log(`Request handler show was called`);
   res.writeHead(200, {'Content-Type': 'image/png'});
   fs.createReadStream('/tmp/test.png').pipe(res);
 };
