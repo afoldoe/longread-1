@@ -1,11 +1,26 @@
 {
   "name": "node-beginner",
   "version": "1.0.0",
-  "description": "Beginner node work",
+  "description": "This is a simple web application that uploads a .png image from a local hard drive and displays the image on the page.",
   "main": "index.js",
+  "dependencies": {
+    "formidable": "^1.0.17"
+  },
+  "devDependencies": {
+    "mocha": "^2.5.3"
+  },
   "scripts": {
+    "start": "node index.js",
     "test": "mocha"
   },
-  "author": "Arielle",
-  "license": "ISC"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/afoldoe/longread-1.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/afoldoe/longread-1/issues"
+  },
+  "homepage": "https://github.com/afoldoe/longread-1#readme"
 }
